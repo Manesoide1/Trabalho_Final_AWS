@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - KickStream</title>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <style>
+        body { background-color: #141414; color: #ffffff; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-[#141414]/95 border-b border-zinc-800 backdrop-blur-md px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-8">
+            <span class="text-3xl font-extrabold tracking-wider text-red-600">KICKSTREAM</span>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-zinc-300">
+                <a href="index.html" class="hover:text-red-500 transition">Início</a>
+                <a href="sobre.html" class="hover:text-red-500 transition">Sobre</a>
+                <a href="contato.html" class="text-white hover:text-red-500 transition">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-lg mx-auto w-full px-6 py-12 md:py-20 flex flex-col justify-center">
+        <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Fale com a nossa equipe</h1>
+        <p class="text-zinc-400 text-sm mb-8">Tem sugestões de campeonatos ou problemas com transmissões? Preencha o formulário abaixo.</p>
+        
+        <form onsubmit="handleSubmit(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs uppercase font-bold text-zinc-400 mb-1">Nome Completo</label>
+                <input type="text" required class="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-500 text-white">
+            </div>
+            <div>
+                <label class="block text-xs uppercase font-bold text-zinc-400 mb-1">E-mail</label>
+                <input type="email" required class="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-500 text-white">
+            </div>
+            <div>
+                <label class="block text-xs uppercase font-bold text-zinc-400 mb-1">Mensagem</label>
+                <textarea rows="4" required class="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-3 text-sm focus:outline-none focus:border-red-500 text-white resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 font-bold py-3 text-sm rounded transition shadow-lg">Enviar Mensagem</button>
+        </form>
+    </main>
+
+    <footer class="bg-black/90 border-t border-zinc-800 text-zinc-500 py-8 px-6 text-center text-xs">
+        <p>&copy; 2026 KickStream Inc. Hospedado na Amazon Web Services (AWS).</p>
+    </footer>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Nossa equipe técnica entrará em contato em breve.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
