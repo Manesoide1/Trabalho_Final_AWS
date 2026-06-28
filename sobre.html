@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - KickStream</title>
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #141414; color: #ffffff; }
     </style>
@@ -21,12 +21,24 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-4xl mx-auto px-6 py-12 md:py-20">
-        <span class="text-red-600 font-bold uppercase text-xs tracking-wider">História</span>
-        <h1 class="text-4xl md:text-5xl font-black mt-2 mb-8 tracking-tight">Democratizando as transmissões de futebol</h1>
-        <div class="prose prose-invert text-zinc-300 space-y-6 text-base leading-relaxed">
-            <p>A <strong>KickStream</strong> é uma startup brasileira que nasceu com uma missão clara: levar transmissões esportivas de qualidade para as divisões regionais, campeonatos estaduais e ligas amadoras que não chegam à televisão aberta ou às grandes plataformas de streaming por assinatura.</p>
-            <p>Usando uma arquitetura escalável hospedada na <strong>Amazon Web Services (AWS)</strong>, conseguimos estruturar transmissões leves e eficientes que garantem estabilidade para o torcedor de qualquer canto do país, seja pelo celular ou computador.</p>
+    <section class="relative bg-zinc-900 py-16 px-6 md:px-12 flex flex-col justify-center min-h-[300px] bg-gradient-to-r from-black/80 to-zinc-900/40">
+        <div class="max-w-3xl z-10">
+            <span class="bg-red-600 text-xs uppercase tracking-widest font-bold px-2 py-1 rounded">Sobre a KickStream</span>
+            <h1 class="text-4xl md:text-5xl font-black mt-4 leading-tight">Democratizando as transmissões de futebol</h1>
+            <p class="text-zinc-300 mt-3 text-base">Tecnologia, performance e paixão pelo esporte em uma plataforma nacional.</p>
+        </div>
+    </section>
+
+    <main class="flex-grow max-w-6xl mx-auto px-6 py-12 md:py-16 w-full">
+        <div class="grid md:grid-cols-2 gap-6">
+            <article class="bg-zinc-950 border border-zinc-800 rounded-lg p-6">
+                <h2 class="text-xl font-bold mb-3">Nossa missão</h2>
+                <p class="text-zinc-300 text-sm leading-relaxed">A <strong>KickStream</strong> nasceu para levar transmissões esportivas de qualidade para divisões regionais, campeonatos estaduais e ligas amadoras que não chegam às grandes emissoras.</p>
+            </article>
+            <article class="bg-zinc-950 border border-zinc-800 rounded-lg p-6">
+                <h2 class="text-xl font-bold mb-3">Infraestrutura AWS</h2>
+                <p class="text-zinc-300 text-sm leading-relaxed">Com arquitetura escalável na <strong>Amazon Web Services (AWS)</strong>, entregamos estabilidade e baixa latência para quem acompanha pelo celular ou computador.</p>
+            </article>
         </div>
     </main>
 
