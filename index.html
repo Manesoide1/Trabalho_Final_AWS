@@ -118,22 +118,11 @@
         };
 
         function carregarJogos() {
-            const params = {
-                TableName: 'kickstream-jogos'
-            };
-
-            // Consulta ao DynamoDB
-            docClient.scan(params, function(err, data) {
-                if (err) {
-                    console.warn("Erro ao ler do DynamoDB, utilizando banco de dados local para demonstração:", err);
-                    carregarMockDados();
-                } else {
-                    console.log("Sucesso ao ler do DynamoDB!");
-                    todosOsJogos = data.Items;
-                    renderizarInterface(todosOsJogos);
-                }
-            });
-        }
+            fetch('/api/jogos')
+                .then(response => response.json())
+                .then(jogos => renderizarInterface(jogos))
+                .catch(err => console.error("Erro ao buscar jogos:", err));
+            }
 
         function carregarMockDados() {
             // Caso ocorra falha de conexão com a AWS (por causa de credenciais locais), renderiza mock
