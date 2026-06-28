@@ -73,22 +73,63 @@
             renderizarInterface(todosOsJogos);
         }
 
+        function extrairValorTexto(valor) {
+            if (typeof valor === 'string') return valor.trim();
+            if (valor && typeof valor === 'object') {
+                if (typeof valor.S === 'string') return valor.S.trim();
+                if (typeof valor.s === 'string') return valor.s.trim();
+                if (typeof valor.url === 'string') return valor.url.trim();
+                if (typeof valor.link === 'string') return valor.link.trim();
+            }
+            return '';
+        }
+
+        function normalizarLink(link) {
+            if (!link) return null;
+            if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('/')) return link;
+            if (link.startsWith('www.')) return `https://${link}`;
+            return null;
+        }
+
         function obterLinkAssistir(jogo) {
-            const candidatos = [
-                jogo.url_assistir,
-                jogo.link_assistir,
-                jogo.url_stream,
-                jogo.stream_url,
-                jogo.link,
-                jogo.url
+            const chavesPrioritarias = [
+                'url_assistir',
+                'link_assistir',
+                'url_stream',
+                'stream_url',
+                'urlAssistir',
+                'linkAssistir',
+                'streamUrl',
+                'watch_url',
+                'watchUrl',
+                'link',
+                'url'
             ];
 
-            const valor = candidatos.find(item => typeof item === 'string' && item.trim() !== '');
-            if (!valor) return null;
+            const candidatos = chavesPrioritarias
+                .map(chave => extrairValorTexto(jogo[chave]))
+                .filter(Boolean);
 
-            const url = valor.trim();
-            if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')) {
-                return url;
+            if (!candidatos.length) {
+                Object.entries(jogo).forEach(([chave, valor]) => {
+                    const chaveNormalizada = chave.toLowerCase();
+                    const pareceChaveDeLink =
+                        chaveNormalizada.includes('assist') ||
+                        chaveNormalizada.includes('watch') ||
+                        chaveNormalizada.includes('stream') ||
+                        chaveNormalizada.includes('url') ||
+                        chaveNormalizada.includes('link');
+
+                    if (pareceChaveDeLink) {
+                        const texto = extrairValorTexto(valor);
+                        if (texto) candidatos.push(texto);
+                    }
+                });
+            }
+
+            for (const candidato of candidatos) {
+                const link = normalizarLink(candidato);
+                if (link) return link;
             }
 
             return null;
