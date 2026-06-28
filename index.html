@@ -94,13 +94,50 @@
             return null;
         }
 
+        function obterThumbJogo(jogo) {
+            const candidatos = [
+                jogo.url_thumb,
+                jogo.thumb_url,
+                jogo.thumbnail_url,
+                jogo.thumbnail,
+                jogo.imagem_url,
+                jogo.image_url,
+                jogo.url_imagem,
+                jogo.capa
+            ];
+
+            const valor = candidatos.find(item => typeof item === 'string' && item.trim() !== '');
+            if (!valor) return null;
+
+            const url = valor.trim();
+            if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')) {
+                return url;
+            }
+
+            return null;
+        }
+
+        function obterThumbPlaceholder() {
+            const svg = `
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 360'>
+                    <rect width='640' height='360' fill='#18181b'/>
+                    <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#a1a1aa' font-family='Arial, sans-serif' font-size='24'>
+                        Thumbnail indisponível
+                    </text>
+                </svg>
+            `;
+            return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+        }
+
         function renderizarInterface(jogos) {
             const grid = document.getElementById('gridJogos');
             grid.innerHTML = '';
+            const thumbPlaceholder = obterThumbPlaceholder();
 
             jogos.forEach(jogo => {
                 const badgeColor = jogo.status === 'Disponível' ? 'bg-green-600' : 'bg-yellow-600';
                 const linkAssistir = obterLinkAssistir(jogo);
+                const thumbUrl = obterThumbJogo(jogo) || thumbPlaceholder;
                 const botaoAssistir = linkAssistir
                     ? `<a href="${linkAssistir}" target="_blank" rel="noopener noreferrer" class="w-full mt-4 inline-block text-center bg-red-600 hover:bg-red-700 text-white text-sm font-bold py-2 rounded transition">Assistir</a>`
                     : `<button class="w-full mt-4 bg-zinc-700 text-zinc-300 text-sm font-bold py-2 rounded cursor-not-allowed" disabled>Indisponível</button>`;
@@ -108,7 +145,7 @@
                 grid.innerHTML += `
                     <div class="bg-zinc-950 border border-zinc-850 rounded-lg overflow-hidden flex flex-col">
                         <div class="relative aspect-video bg-zinc-900">
-                            <img src="${jogo.url_thumb}" alt="${jogo.titulo}" class="w-full h-full object-cover">
+                            <img src="${thumbUrl}" alt="${jogo.titulo}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null;this.src='${thumbPlaceholder}'">
                             <span class="absolute top-2 left-2 ${badgeColor} text-white font-bold text-[10px] px-2 py-0.5 rounded uppercase">${jogo.status}</span>
                         </div>
                         <div class="p-4">
